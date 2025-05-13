@@ -9,6 +9,7 @@ import (
 
 	"github.com/edwinboon/workout-tracking-api/internal/api"
 	"github.com/edwinboon/workout-tracking-api/internal/store"
+	"github.com/edwinboon/workout-tracking-api/migrations"
 )
 
 type Application struct {
@@ -18,6 +19,7 @@ type Application struct {
 }
 
 func NewApplication() (*Application, error) {
+
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 
 	// stores
@@ -25,6 +27,13 @@ func NewApplication() (*Application, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	// migrations
+	err = store.MigrateFS(pgDB, migrations.FS, ".")
+
+	if err != nil {
+		panic(err) // if database is not working just self-destruct
 	}
 
 	// handlers
