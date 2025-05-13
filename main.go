@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/edwinboon/workout-tracking-api/internal/app"
+	"github.com/edwinboon/workout-tracking-api/internal/routes"
 )
 
 func main() {
@@ -22,13 +23,12 @@ func main() {
 		panic(err) // Self destruct if we can't start the application
 	}
 
-	// Start the application
-
-	http.HandleFunc("/health", app.HealthCheck)
-
 	// Setup server
+	r := routes.SetupRoutes(app)
+
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
+		Handler:      r,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
