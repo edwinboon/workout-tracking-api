@@ -24,7 +24,7 @@ func main() {
 
 	// Start the application
 
-	http.HandleFunc("/health", HealthCheck)
+	http.HandleFunc("/health", app.HealthCheck)
 
 	// Setup server
 	server := &http.Server{
@@ -42,8 +42,4 @@ func main() {
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
-}
-
-func HealthCheck(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Status is available\n")
 }
