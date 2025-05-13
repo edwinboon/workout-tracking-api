@@ -23,6 +23,8 @@ func main() {
 		panic(err) // Self destruct if we can't start the application
 	}
 
+	defer app.DB.Close() // Close the database connection when the application exits thanks to defer
+
 	// Setup server
 	r := routes.SetupRoutes(app)
 
