@@ -2,14 +2,20 @@ package store
 
 import (
 	"database/sql"
+	_ "golang.org/x/crypto/bcrypt"
 	"time"
 )
+
+type password struct {
+	plaintext *string
+	hash      []byte
+}
 
 type User struct {
 	ID           int64     `json:"id"`
 	Username     string    `json:"username"`
 	Email        string    `json:"email"`
-	PasswordHash string    `json:"-"` // Don't include password hash in JSON response
+	PasswordHash password  `json:"-"` // Don't include password hash in JSON response
 	Bio          string    `json:"bio"`
 	AvatarURL    string    `json:"avatar_url"`
 	CreatedAt    time.Time `json:"created_at"`
