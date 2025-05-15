@@ -25,3 +25,9 @@ func NewPostgresUserStore(db *sql.DB) *PostgresUserStore {
 		db: db,
 	}
 }
+
+type UserStore interface {
+	CreateUser(*User) (*User, error)
+	GetUserByUsername(username string) (*User, error)
+	UpdateUser(*User) error
+}
