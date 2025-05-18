@@ -14,7 +14,7 @@ type password struct {
 }
 
 type User struct {
-	ID           int64     `json:"id"`
+	ID           int       `json:"id"`
 	Username     string    `json:"username"`
 	Email        string    `json:"email"`
 	PasswordHash password  `json:"-"` // Don't include password hash in JSON response
