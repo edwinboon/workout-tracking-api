@@ -28,6 +28,15 @@ A simple REST API for tracking workouts, built with Go.
 
 3. Run the database migrations to set up the schema:
 
+   Make sure you have the `goose` tool installed. If not, you can install it with:
+
+   ```bash
+   go install github.com/pressly/goose/v3/cmd/goose@latest
+   ```
+
+   Then, run the migrations:
+   adjust the connection string if you have changed any credentials in the `docker-compose.yml` file
+
    ```bash
     goose -dir migrations postgres "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" up
    ```
