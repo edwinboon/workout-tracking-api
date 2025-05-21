@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/edwinboon/workout-tracking-api/internal/api"
+	"github.com/edwinboon/workout-tracking-api/internal/middleware"
 	"github.com/edwinboon/workout-tracking-api/internal/store"
 	"github.com/edwinboon/workout-tracking-api/migrations"
 )
@@ -17,6 +18,7 @@ type Application struct {
 	WorkoutHandler *api.WorkoutHandler
 	UserHandler    *api.UserHandler
 	TokenHandler   *api.TokenHandler
+	Middleware     *middleware.UserMiddleware
 	DB             *sql.DB
 }
 
@@ -45,12 +47,14 @@ func NewApplication() (*Application, error) {
 	workoutHandler := api.NewWorkoutHandler(workoutStore, logger)
 	userHandler := api.NewUserHandler(userStore, logger)
 	tokenHandler := api.NewTokenHandler(tokenStore, userStore, logger)
+	middlewareHandler := middleware.UserMiddleware{UserStore: userStore}
 
 	app := &Application{
 		Logger:         logger,
 		WorkoutHandler: workoutHandler,
 		UserHandler:    userHandler,
 		TokenHandler:   tokenHandler,
+		Middleware:     &middlewareHandler,
 		DB:             pgDB,
 	}
 
