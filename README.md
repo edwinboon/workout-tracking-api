@@ -10,6 +10,35 @@ A simple REST API for tracking workouts, built with Go.
 - Docker Compose (optional, for running the application in a container)
 - Postman or curl (for testing the API)
 
+## Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone git@github.com:edwinboon/workout-tracking-api.git
+    cd workout-tracking-api
+   ```
+
+2. If you want to run PostgreSQL in a Docker container, you can use the provided `docker-compose.yml` file.
+   The credentials for the local PostgreSQL database are hardcoded inside the `docker-compose.yml` file.
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Run the database migrations to set up the schema:
+
+   ```bash
+    goose -dir migrations postgres "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" up
+   ```
+
+4. Start the application:
+   ```bash
+   go run main.go
+   ```
+5. The API will be available at `http://localhost:8080`.
+6. You can use Postman or curl to test the API endpoints.
+
 ## curl requests
 
 ### Create a new user
