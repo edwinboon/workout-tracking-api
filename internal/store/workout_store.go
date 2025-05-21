@@ -1,6 +1,8 @@
 package store
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Workout struct {
 	ID              int            `json:"id"`
@@ -52,8 +54,8 @@ func (pg *PostgresWorkoutStore) CreateWorkout(workout *Workout) (*Workout, error
 	defer tx.Rollback()
 
 	query :=
-		`INSERT INTO workouts (user_id title, description, duration_minutes, calories_burned)
-	VALUES ($1, $2, $3, $4 $5)
+		`INSERT INTO workouts (user_id, title, description, duration_minutes, calories_burned)
+	VALUES ($1, $2, $3, $4, $5)
 	RETURNING id
 	`
 
